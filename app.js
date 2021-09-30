@@ -24,10 +24,11 @@ var guesses = possible.filter(
   }
 );
 
-var guessed = []
-for (let i = 0; i < guesses.length;i++){
-    guessed[i] = false;
-}printWords();
+var guessed = [];
+for (let i = 0; i < guesses.length; i++) {
+  guessed[i] = false;
+}
+printWords();
 function checkGuess(guess) {
   if (guesses.includes(guess)) {
     //reveal letters
@@ -35,21 +36,24 @@ function checkGuess(guess) {
 }
 function printWords() {
   console.clear(); //empties what is in the current console
-  for (let i = 0; i < guesses.length ;i++){ //goes through entire array of words  
-    if (guessed[i] == true) {console.log(toString(guesses[i]))}   //guessed word case
+  for (let i = 0; i < guesses.length; i++) {
+    //goes through entire array of words
+    if (guessed[i] == true) {
+      console.log(toString(guesses[i]));
+    } //guessed word case
     else {
-      let str = ""    
-      for (let j = 0; j < guesses[i].length; j++){ // non guessed words get a dash for each letter
-      str = str.concat('-')
+      let str = "";
+      for (let j = 0; j < guesses[i].length; j++) {
+        // non guessed words get a dash for each letter
+        str = str.concat("-");
       }
-      console.log(str)
+      console.log(str);
+    }
   }
-}
 }
 function shuffle(array) {
   let empty = []; //initialize empty auxillary array
-  array.forEach((element =>
-  {
+  array.forEach((element) => {
     //giving each element in the old array a new location
     let newloc = Math.floor(Math.random() * array.length); //gives a random index in range
     while (empty[newloc] != undefined) {
@@ -57,10 +61,9 @@ function shuffle(array) {
       newloc++; //increments by one in an attempt to find an unoccupied space
       if (newloc >= array.length) newloc = 0; //if we have reached the end by going through, loop to start
     }
-    empty[newloc]= element //insert element to new position
-  }))
-  for (let i = 0; i < array.length;i++)
-  array[i] = empty[i]
+    empty[newloc] = element; //insert element to new position
+  });
+  for (let i = 0; i < array.length; i++) array[i] = empty[i];
 }
 /* Start looping guesses
 
