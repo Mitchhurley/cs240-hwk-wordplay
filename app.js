@@ -3,7 +3,6 @@ var sixes = dictionary.filter((word) => word.length == 6); //grabs all the eleme
 var baseword = sixes[Math.floor(Math.random() * sixes.length)]; //picks a random word from list of six letter ones
 
 var lettersinroot = [...baseword]; //make an array with each character in root word
-lettersinroot = lettersinroot.sort((a, b) => 0.5 - Math.random()); //psuedoshuffle
 
 var possible = dictionary.filter(
   (word) => word.length <= 6 && word.length >= 3
@@ -24,18 +23,28 @@ var guesses = possible.filter(
     return true; //if the word makes it here then it follows the rules
   }
 );
-var guessed = []; //array of size = #of words
+
+var guessed = []
+for (let i = 0; i < guesses.length;i++){
+    guessed[i] = false;
+}printWords();
 function checkGuess(guess) {
-  if (possible.includes(guess)) {
+  if (guesses.includes(guess)) {
     //reveal letters
   } else return false;
 }
-function buildWords() {
-  console.clear();
-  function buildGuessed() {}
-  function writeWord(word) {
-    //write out thang to screen
+function printWords() {
+  console.clear(); //empties what is in the current console
+  for (let i = 0; i < guesses.length ;i++){ //goes through entire array of words  
+    if (guessed[i] == true) {console.log(toString(guesses[i]))}   //guessed word case
+    else {
+      let str = ""    
+      for (let j = 0; j < guesses[i].length; j++){ // non guessed words get a dash for each letter
+      str = str.concat('-')
+      }
+      console.log(str)
   }
+}
 }
 function shuffle(array) {
   let empty = []; //initialize empty auxillary array
