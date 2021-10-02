@@ -17,29 +17,43 @@ var guesses = possible.filter(
       var lettersinroot = [...baseword]; //remakes the array cause the letters get spliced away
       if (lettersinroot.includes(word.charAt(i))) {
         //checks to see if the first letter of the word is a valid one
-        lettersinroot.splice(lettersinroot.indexOf(word[i]), 1); //if it is, the letter is removed and the process repeats
+        lettersinroot.splice((lettersinroot.indexOf(word.charAt[i])), 1); //if it is, the letter is removed and the process repeats
       } else return false; //otherwise return that the word is bad
     }
     return true; //if the word makes it here then it follows the rules
   }
 );
 
-var guessed = [];
-for (let i = 0; i < guesses.length; i++) {
-  guessed[i] = false;
+var foundWords = []; // initialize empty array to keep track of guessed variables
+for (let i = 0; i < guesses.length; i++) { //sets all guesses to false
+  foundWords[i] = false;
 }
+shuffle(lettersinroot)
 printWords();
+
+do{
+   var input = prompt("Gimme guess");
+   //TODO implement shuffle on "*" as input
+   checkGuess(input)
+}while (input!= null && !foundWords.every(Boolean)) //null input or all words being guessed ends the loop   
+//TODO congratulate user if they got all
+//TODO reveal answers and print out guessed words
+
+
 function checkGuess(guess) {
-  if (guesses.includes(guess)) {
-    //reveal letters
+  if (guesses.includes(guess) && !foundWords[guesses.indexOf(guess)]) {
+    foundWords[guesses.indexOf(guess)] = true
+    printWords();
+    //TODO alert user based on input
   } else return false;
 }
 function printWords() {
   console.clear(); //empties what is in the current console
+  console.log(lettersinroot)
   for (let i = 0; i < guesses.length; i++) {
     //goes through entire array of words
-    if (guessed[i] == true) {
-      console.log(toString(guesses[i]));
+    if (foundWords[i] == true) {
+      console.log(guesses[i].toString());
     } //guessed word case
     else {
       let str = "";
@@ -65,8 +79,4 @@ function shuffle(array) {
   });
   for (let i = 0; i < array.length; i++) array[i] = empty[i];
 }
-/* Start looping guesses
 
-
-
-*/
