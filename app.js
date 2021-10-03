@@ -30,23 +30,45 @@ for (let i = 0; i < guesses.length; i++) { //sets all guesses to false
 }
 shuffle(lettersinroot)
 printWords();
-
+let done = false
 do{
    var input = prompt("Gimme guess");
-   //TODO implement shuffle on "*" as input
-   checkGuess(input)
-}while (input!= null && !foundWords.every(Boolean)) //null input or all words being guessed ends the loop   
-//TODO congratulate user if they got all
+   if (input == "*") {shuffle(lettersinroot);printWords();}
+   else if (input == null) done = true;
+   else{checkGuess(input)}
+   
+}while (!done && !foundWords.every(Boolean)) //null input or all words being guessed ends the loop   
+//congratulate user if they got all the words
+console.clear();
+if (foundWords.every(Boolean)) console.log(`Wow! You found every word you can make from ${baseword}! Thats ${foundWords.length} different words!`)
 //TODO reveal answers and print out guessed words
+let numbo = countguessed(foundWords)
+for (let i = 0; i < guesses.length; i++) { //prints the words
+    console.log(guesses[i]);
+  }
+
+console.log(`Of ${foundWords.length} possible words, you guessed ${numbo} of them.`)
 
 
+
+
+//method that takes a guess and checks it, then changes the corresponding bool and reprints words
 function checkGuess(guess) {
   if (guesses.includes(guess) && !foundWords[guesses.indexOf(guess)]) {
-    foundWords[guesses.indexOf(guess)] = true
+    foundWords[guesses.indexOf(guess)] = true;
     printWords();
+    alert(`Correct! ${guess} is in the list! Can you think of any others?`);
     //TODO alert user based on input
-  } else return false;
+  } else if (guess.length > 6) alert(`You can't spell ${guess} with the letter I gave you... but nice try!`)
+  else if (guess.length < 3) alert(`At least use three letters, come on... ${guess} is a little too easy`)
+  else if (foundWords[guesses.indexOf(guess)]) alert("You already got that one")
+  
+  
+  
+  return false;
 }
+
+//function that handles the console output of words
 function printWords() {
   console.clear(); //empties what is in the current console
   console.log(lettersinroot)
@@ -79,4 +101,8 @@ function shuffle(array) {
   });
   for (let i = 0; i < array.length; i++) array[i] = empty[i];
 }
-
+//funtion that finds how many words were guessed
+function countguessed(array){
+    let i = array.filter(Boolean)
+    return i.length;
+}
