@@ -12,12 +12,15 @@ var guesses = possible.filter(
   //build list of valid words
   function (word) {
     //function that checks each word
+    //remakes the array cause the letters get spliced away
+    var lettersinroot = [...baseword];
     for (let i = 0; i < word.length; i++) {
       //goes through all the letters in word
-      var lettersinroot = [...baseword]; //remakes the array cause the letters get spliced away
+       
       if (lettersinroot.includes(word.charAt(i))) {
         //checks to see if the first letter of the word is a valid one
-        lettersinroot.splice((lettersinroot.indexOf(word.charAt[i])), 1); //if it is, the letter is removed and the process repeats
+        let location = lettersinroot.indexOf(word.charAt(i));
+        lettersinroot.splice((location), 1); //if it is, the letter is removed and the process repeats
       } else return false; //otherwise return that the word is bad
     }
     return true; //if the word makes it here then it follows the rules
@@ -44,7 +47,7 @@ console.clear();
 if (foundWords.every(Boolean)) console.log(`Wow! You found every word you can make from ${baseword}! Thats ${foundWords.length} different words!`)
 for (let i = 0; i < guesses.length; i++) { //prints the words
     console.log(guesses[i]);
-  }
+  } 
 console.log(`Of ${foundWords.length} possible words, you guessed ${countguessed(foundWords)} of them.`)
 
 
